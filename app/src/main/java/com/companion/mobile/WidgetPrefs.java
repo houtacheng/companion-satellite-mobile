@@ -13,6 +13,7 @@ public final class WidgetPrefs {
  public static int opacity(Context c,int id){return p(c).getInt("o"+id,100);}
  public static void setOpacity(Context c,int id,int opacity){p(c).edit().putInt("o"+id,Math.max(5,Math.min(100,opacity))).apply();}
  public static boolean faderVertical(Context c,int id){return p(c).getBoolean("fv"+id,true);}
+ public static void setFaderVertical(Context c,int id,boolean vertical){p(c).edit().putBoolean("fv"+id,vertical).apply();}
  public static float faderMin(Context c,int id){return p(c).getFloat("fmin"+id,0f);}
  public static float faderMax(Context c,int id){return p(c).getFloat("fmax"+id,100f);}
  public static String faderVariable(Context c,int id,int index){return p(c).getString("fvar"+id+"_"+index,"");}
