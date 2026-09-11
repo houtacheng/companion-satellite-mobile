@@ -254,7 +254,15 @@ private extension Color {init(hex:String){let s=hex.trimmingCharacters(in:Charac
     var body:some ControlWidgetConfiguration {
         AppIntentControlConfiguration(kind:Self.kind,intent:CompanionControlIntent.self){configuration in
             ControlWidgetButton(action:configuration){
-                Label(configuration.control?.name ?? "尚未設定",systemImage:configuration.control?.icon ?? "button.programmable")
+                Label {
+                    Text(configuration.control?.name ?? "尚未設定")
+                } icon: {
+                    if configuration.control?.icon == "companion.logo" {
+                        Image("CompanionControlIcon")
+                    } else {
+                        Image(systemName:configuration.control?.icon ?? "button.programmable")
+                    }
+                }
             }
         }.displayName("Companion 直接控制").description("直接觸發指定按鈕，不開啟 App。").promptsForUserConfiguration()
     }

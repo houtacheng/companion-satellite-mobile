@@ -138,7 +138,7 @@ public class MainActivity extends Activity {
         host.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,hostNames)); host.setSelection(selected);
         TextView hint=new TextView(this); hint.setText("儲存後，此控制會以獨立 Satellite Surface 出現在所選 Companion。請在 Companion 的 Surfaces 頁面指定它所對應的按鈕位置。控制項名稱完全由您輸入，不會被 Companion 後台按鈕文字覆蓋。"); hint.setTextColor(Color.GRAY); hint.setPadding(0,dp(10),0,0);
         TextView iconLabel=new TextView(this);iconLabel.setText("圖示");iconLabel.setPadding(0,dp(12),0,0);
-        String[] iconNames={"可程式按鈕","燈光","風扇","門","喇叭","播放","停止","電源","閃電","按鈕矩陣"};String[] iconKeys={"companion","light","fan","door","speaker","play","stop","power","bolt","grid"};
+        String[] iconNames={"Companion","燈光","風扇","門","喇叭","播放","停止","電源","閃電","按鈕矩陣"};String[] iconKeys={"companion","light","fan","door","speaker","play","stop","power","bolt","grid"};
         Spinner icon=new Spinner(this);icon.setAdapter(new ArrayAdapter<>(this,android.R.layout.simple_spinner_dropdown_item,iconNames));int selectedIcon=0;for(int i=0;i<iconKeys.length;i++)if(iconKeys[i].equals(old.icon))selectedIcon=i;icon.setSelection(selectedIcon);
         final boolean[] useBuiltin={false};Button applyBuiltin=new Button(this);applyBuiltin.setText("使用選取的內建圖示");applyBuiltin.setOnClickListener(v->{useBuiltin[0]=true;Toast.makeText(this,"儲存後改用內建圖示",Toast.LENGTH_SHORT).show();});
         Button importPng=new Button(this);importPng.setText(old.customIcon.isEmpty()?"自訂匯入 PNG 檔":"更換自訂 PNG（目前已設定）");importPng.setOnClickListener(v->{pendingIconSlot=slot;Intent pick=new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("image/png").addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(pick,IMPORT_CONTROL_PNG);});
