@@ -203,8 +203,9 @@ struct CompanionWidgetIntent: WidgetConfigurationIntent {
     @Parameter(title:"主機") var host:CompanionHostEntity?
     @Parameter(title:"Surface 編號", default:1) var page:Int
     @Parameter(title:"允許按下與旋轉", default:true) var interactive:Bool
-    @Parameter(title:"透明度（5～100）", default:100) var opacity:Int
-    init(){name="Companion";host=nil;page=1;interactive=true;opacity=100}
+    @Parameter(title:"按鈕透明度（5～100）", default:100) var opacity:Int
+    @Parameter(title:"底圖透明度（0～100）", default:100) var backgroundOpacity:Int
+    init(){name="Companion";host=nil;page=1;interactive=true;opacity=100;backgroundOpacity=100}
 }
 
 struct CompanionEntry: TimelineEntry { let date:Date;let configuration:CompanionWidgetIntent;let visuals:[KeyVisual] }
@@ -219,6 +220,8 @@ struct ProviderMixed4x4:AppIntentTimelineProvider {func placeholder(in context:C
 private struct CompanionGrid:View {
     let entry:CompanionEntry;let rows:Int;let columns:Int;var rotaryRows:Set<Int>=[];var surfaceTag="grid"
     private var safeInset:CGFloat { rows >= 4 ? 10:4 }
+    private var buttonOpacity:Double { Double(max(5,min(100,entry.configuration.opacity)))/100 }
+    private var backgroundOpacity:Double { Double(max(0,min(100,entry.configuration.backgroundOpacity)))/100 }
     var body:some View {
         VStack(spacing:5) {
             ForEach(0..<rows,id:\.self){r in
@@ -226,12 +229,12 @@ private struct CompanionGrid:View {
                     let index=r*columns+c
                     let serial="widget-\(entry.configuration.host?.id ?? "none")-\(surfaceTag)-\(columns)x\(rows)-\(entry.configuration.page)"
                     let visual=entry.visuals.indices.contains(index) ? entry.visuals[index]:KeyVisual(text:"\(index+1)")
-                    if rotaryRows.contains(r) { RotaryCell(visual:visual,internet:entry.configuration.host?.internetURL ?? "",serial:serial,rows:rows,columns:columns,index:index,interactive:entry.configuration.interactive) }
-                    else if entry.configuration.interactive { Button(intent:CompanionPressIntent(internet:entry.configuration.host?.internetURL ?? "",local:entry.configuration.host?.localURL ?? "",serial:serial,rows:rows,columns:columns,index:index)){KeyFace(visual:visual,round:true)}.buttonStyle(.plain) }
-                    else { KeyFace(visual:visual,round:true) }
+                    if rotaryRows.contains(r) { RotaryCell(visual:visual,internet:entry.configuration.host?.internetURL ?? "",serial:serial,rows:rows,columns:columns,index:index,interactive:entry.configuration.interactive).opacity(buttonOpacity) }
+                    else if entry.configuration.interactive { Button(intent:CompanionPressIntent(internet:entry.configuration.host?.internetURL ?? "",local:entry.configuration.host?.localURL ?? "",serial:serial,rows:rows,columns:columns,index:index)){KeyFace(visual:visual,round:true)}.buttonStyle(.plain).opacity(buttonOpacity) }
+                    else { KeyFace(visual:visual,round:true).opacity(buttonOpacity) }
                 }}
             }
-        }.padding(safeInset).opacity(Double(max(5,min(100,entry.configuration.opacity)))/100).containerBackground(Color.clear,for:.widget)
+        }.padding(safeInset).containerBackground(Color.black.opacity(backgroundOpacity),for:.widget)
     }
 }
 

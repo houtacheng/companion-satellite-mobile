@@ -12,7 +12,7 @@
   <header class="hero">
     <nav><a class="brand" href="#top"><img src="assets/app-icon.png" alt="">Companion Satellite</a><a href="#features">功能</a><a href="#showcase">實機畫面</a><a href="#ios-shortcuts">iOS 捷徑</a><a href="#download">下載</a><a href="https://github.com/houtacheng/companion-satellite-mobile">GitHub</a></nav>
     <div class="hero-grid" id="top">
-      <div><span class="eyebrow">ANDROID · iOS · SATELLITE</span><h1>手機就是<br>Companion<br>控制面板</h1><p>透過原生 Satellite 協定即時取得按鈕畫面、直接操作，並在區網與網際網路之間自動切換。</p><div class="actions"><a class="primary" href="downloads/Companion-Satellite-Android-v2.38.3.apk">下載 Android v2.38.3</a><a class="secondary" href="https://github.com/houtacheng/companion-satellite-mobile">查看原始碼</a></div></div>
+      <div><span class="eyebrow">ANDROID · iOS · SATELLITE</span><h1>手機就是<br>Companion<br>控制面板</h1><p>透過原生 Satellite 協定即時取得按鈕畫面、直接操作，並在區網與網際網路之間自動切換。</p><div class="actions"><a class="primary" href="downloads/Companion-Satellite-Android-v2.38.8.apk">下載 Android v2.38.8</a><a class="secondary" href="https://github.com/houtacheng/companion-satellite-mobile">查看原始碼</a></div></div>
       <img class="phone hero-shot" src="assets/widget-panel-4x4.png" alt="Android Companion Satellite Widget 實機畫面">
     </div>
   </header>
@@ -20,10 +20,10 @@
     <section id="features"><span class="eyebrow">核心功能</span><h2>一個 App，連接所有 Companion 主機</h2><div class="cards">
       <article><b>Satellite 原生連線</b><p>不使用 Companion HTTP 按鈕 API，支援按下、狀態與按鈕畫面。</p></article>
       <article><b>自動切換網路</b><p>Wi‑Fi 優先使用區網；無法連線時自動改走 Cloudflare 網際網路網址。</p></article>
-      <article><b>多種小工具</b><p>1×1、3×2、4×4、旋鈕與混合面板，並可個別調整透明度。</p></article>
+      <article><b>多種小工具</b><p>1×1、3×2、4×4、旋鈕與混合面板，按鈕及底圖透明度可分別調整。</p></article>
       <article><b>Tally 唯讀模式</b><p>Widget 與 Android 懸浮旋鈕可個別停用操作，只保留 Satellite 即時狀態，避免誤觸。</p></article>
       <article><b>Companion 啟動球</b><p>Android 可顯示圓形懸浮啟動球，在任何 App 上方點一下直接開啟 Companion，並可調整透明度與大小。</p></article>
-      <article><b>Satellite Fader</b><p>Android 提供可縮放的單路與四路 Fader Widget，並可新增能真正滑動的懸浮 Fader。變數只需輸入 WiiM:volume 這類簡短格式。</p></article>
+      <article><b>Satellite Fader</b><p>Android 提供可縮放的單路與四路 Fader Widget，以及懸浮 Fader。輕點滑軌即可逐格旋轉，變數只需輸入 WiiM:volume 這類簡短格式。</p></article>
       <article><b>多主機管理</b><p>每個控制項與小工具可選擇不同主機，並支援 CSV 批次匯入與匯出。</p></article>
     </div></section>
     <section id="showcase" class="product-showcase">
@@ -40,7 +40,7 @@
       </article>
 
       <article class="feature-row">
-        <div class="feature-copy"><span class="number">03</span><span class="eyebrow">懸浮旋鈕</span><h3>在任何 App 上方即時控制</h3><p>可同時建立多顆 1×1 懸浮 Satellite 旋鈕，由 Companion 主機指派按鈕。透明度、大小及圓形／圓角方形外框都可個別調整。</p><ul><li>輕點：按下按鈕</li><li>左右滑：旋鈕左轉／右轉</li><li>可停用操作，作為純 Tally 指示燈</li><li>長按拖曳：自由移動位置</li></ul></div>
+        <div class="feature-copy"><span class="number">03</span><span class="eyebrow">懸浮旋鈕</span><h3>在任何 App 上方即時控制</h3><p>可同時建立多顆 1×1 懸浮 Satellite 旋鈕，由 Companion 主機指派按鈕。按鈕透明度、底圖透明度、大小及圓形／圓角方形外框都可個別調整。</p><ul><li>點中央按鈕：送出 Companion 按鍵操作</li><li>點上／右半部：右轉一格；點下／左半部：左轉一格</li><li>可停用操作，作為純 Tally 指示燈</li><li>快速點兩下，第二下按住 0.5 秒：振動後自由移動</li></ul></div>
         <figure class="media phone-frame"><img src="assets/floating-rotary-controls.png" alt="Companion 懸浮 Satellite 旋鈕實機畫面"><figcaption>懸浮旋鈕可疊在其他 App 上方</figcaption></figure>
       </article>
     </section>
@@ -75,7 +75,7 @@
       </div>
     </section>
     <section id="download" class="download"><span class="eyebrow">開始使用</span><h2>下載 Companion Satellite Mobile</h2><div class="platforms">
-      <article><h3>Android</h3><p>Android 8.0 以上。下載 APK 後允許瀏覽器安裝未知來源 App。</p><a class="primary" href="downloads/Companion-Satellite-Android-v2.38.3.apk">下載 APK · v2.38.3</a></article>
+      <article><h3>Android</h3><p>Android 8.0 以上。下載 APK 後允許瀏覽器安裝未知來源 App。</p><a class="primary" href="downloads/Companion-Satellite-Android-v2.38.8.apk">下載 APK · v2.38.8</a></article>
       <article><h3>iPhone / iOS</h3><p>目前提供完整原始碼。Personal Team 簽署無法公開散布安裝檔，請使用 Xcode 與自己的 Apple ID 安裝。</p><a class="secondary" href="https://github.com/houtacheng/companion-satellite-mobile#ios">iOS 安裝說明</a></article>
     </div></section>
   </main>

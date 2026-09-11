@@ -1,12 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="2dp" android:background="@android:color/transparent">
- <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal"><ImageButton android:id="@+id/key1" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key2" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key3" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key4" style="@style/SatelliteKey"/></LinearLayout>
- <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal"><ImageButton android:id="@+id/key5" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key6" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key7" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key8" style="@style/SatelliteKey"/></LinearLayout>
- <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal"><ImageButton android:id="@+id/key9" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key10" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key11" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key12" style="@style/SatelliteKey"/></LinearLayout>
- <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
-  <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp"><ImageView android:id="@+id/rotary_image1" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal"><ImageButton android:id="@+id/rotary_left1" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_press1" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_right1" style="@style/RotaryTouch"/></LinearLayout></FrameLayout>
-  <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp"><ImageView android:id="@+id/rotary_image2" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal"><ImageButton android:id="@+id/rotary_left2" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_press2" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_right2" style="@style/RotaryTouch"/></LinearLayout></FrameLayout>
-  <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp"><ImageView android:id="@+id/rotary_image3" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal"><ImageButton android:id="@+id/rotary_left3" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_press3" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_right3" style="@style/RotaryTouch"/></LinearLayout></FrameLayout>
-  <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp"><ImageView android:id="@+id/rotary_image4" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/><LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal"><ImageButton android:id="@+id/rotary_left4" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_press4" style="@style/RotaryTouch"/><ImageButton android:id="@+id/rotary_right4" style="@style/RotaryTouch"/></LinearLayout></FrameLayout>
- </LinearLayout>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/widget_root" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:padding="2dp" android:background="@android:color/transparent">
+  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+    <ImageButton android:id="@+id/key1" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key2" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key3" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key4" style="@style/SatelliteKey"/>
+  </LinearLayout>
+  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+    <ImageButton android:id="@+id/key5" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key6" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key7" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key8" style="@style/SatelliteKey"/>
+  </LinearLayout>
+  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+    <ImageButton android:id="@+id/key9" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key10" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key11" style="@style/SatelliteKey"/>
+    <ImageButton android:id="@+id/key12" style="@style/SatelliteKey"/>
+  </LinearLayout>
+  <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+    <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp">
+      <ImageView android:id="@+id/rotary_image1" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+        <ImageButton android:id="@+id/rotary_left1" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_press1" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_right1" style="@style/RotaryTouch"/>
+      </LinearLayout>
+    </FrameLayout>
+    <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp">
+      <ImageView android:id="@+id/rotary_image2" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+        <ImageButton android:id="@+id/rotary_left2" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_press2" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_right2" style="@style/RotaryTouch"/>
+      </LinearLayout>
+    </FrameLayout>
+    <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp">
+      <ImageView android:id="@+id/rotary_image3" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+        <ImageButton android:id="@+id/rotary_left3" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_press3" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_right3" style="@style/RotaryTouch"/>
+      </LinearLayout>
+    </FrameLayout>
+    <FrameLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:padding="3dp">
+      <ImageView android:id="@+id/rotary_image4" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter"/>
+      <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+        <ImageButton android:id="@+id/rotary_left4" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_press4" style="@style/RotaryTouch"/>
+        <ImageButton android:id="@+id/rotary_right4" style="@style/RotaryTouch"/>
+      </LinearLayout>
+    </FrameLayout>
+  </LinearLayout>
 </LinearLayout>
