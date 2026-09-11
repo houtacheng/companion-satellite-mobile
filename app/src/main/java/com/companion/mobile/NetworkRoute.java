@@ -1,0 +1,16 @@
+package com.companion.mobile;
+import android.net.Uri;import java.net.*;import java.nio.charset.StandardCharsets;import android.util.Base64;
+public final class NetworkRoute {
+ private static final String PREFIX="auto:";
+ public static String auto(String lanWeb,String remoteSatellite){String value=lanWeb+"\n"+remoteSatellite;return PREFIX+Base64.encodeToString(value.getBytes(StandardCharsets.UTF_8),Base64.NO_WRAP|Base64.URL_SAFE);}
+ public static boolean isAuto(String v){return v!=null&&v.startsWith(PREFIX);}
+ private static String[] parts(String value){try{return new String(Base64.decode(value.substring(PREFIX.length()),Base64.NO_WRAP|Base64.URL_SAFE),StandardCharsets.UTF_8).split("\n",2);}catch(Exception e){return new String[]{"",value};}}
+ private static String secureSatellite(String value){return value!=null&&value.startsWith("ws://")?"wss://"+value.substring(5):value;}
+ public static String resolveSatellite(String value){if(!isAuto(value))return secureSatellite(value);String[] p=parts(value);String host=Uri.parse(p[0]).getHost();if(host!=null&&reachable(host,16622,900))return "tcp://"+host+":16622";return secureSatellite(p.length>1?p[1]:"");}
+ public static String remoteSatellite(String value){if(!isAuto(value))return secureSatellite(value);String[] p=parts(value);return secureSatellite(p.length>1?p[1]:"");}
+ public static boolean reachable(String host,int port,int timeout){try{Socket s=new Socket();s.connect(new InetSocketAddress(host,port),timeout);s.close();return true;}catch(Exception e){return false;}}
+ public static boolean lanAvailable(String lanWeb){try{URL u=new URL(lanWeb);int port=u.getPort()>0?u.getPort():("https".equals(u.getProtocol())?443:80);return reachable(u.getHost(),port,900);}catch(Exception e){return false;}}
+ public static String resolveWeb(String value){String lan="",sat=value;if(isAuto(value)){String[] p=parts(value);lan=p[0];sat=p.length>1?p[1]:"";if(!lan.isEmpty()&&lanAvailable(lan))return lan;}if(sat.startsWith("wss://"))sat="https://"+sat.substring(6);else if(sat.startsWith("ws://"))sat="http://"+sat.substring(5);if(sat.endsWith("/satellite"))sat=sat.substring(0,sat.length()-10);return sat;}
+ public static String resolveWebFast(String value,boolean lanConnected){String sat=value;if(isAuto(value)){String[] p=parts(value);if(lanConnected&&p.length>0&&!p[0].isEmpty())return p[0];sat=p.length>1?p[1]:"";}if(sat.startsWith("wss://"))sat="https://"+sat.substring(6);else if(sat.startsWith("ws://"))sat="http://"+sat.substring(5);if(sat.endsWith("/satellite"))sat=sat.substring(0,sat.length()-10);return sat;}
+ public static void migrate(android.content.Context c,String oldEndpoint,String newRoute){android.content.SharedPreferences controls=c.getSharedPreferences("companion_controls",android.content.Context.MODE_PRIVATE);android.content.SharedPreferences.Editor ce=controls.edit();for(int i=1;i<=12;i++)if(oldEndpoint.equals(controls.getString("s"+i+"_host","")))ce.putString("s"+i+"_host",newRoute);ce.apply();android.content.SharedPreferences widgets=c.getSharedPreferences("satellite_widgets",android.content.Context.MODE_PRIVATE);android.content.SharedPreferences.Editor we=widgets.edit();for(java.util.Map.Entry<String,?> e:widgets.getAll().entrySet())if(e.getKey().startsWith("h")&&oldEndpoint.equals(e.getValue()))we.putString(e.getKey(),newRoute);we.apply();}
+}

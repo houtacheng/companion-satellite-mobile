@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/bitfocus_companion"
+        android:roundIcon="@drawable/bitfocus_companion"
+        android:label="Companion"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:theme="@style/Theme.Companion"
+        android:usesCleartextTraffic="true">
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenSize|uiMode"
+            android:exported="true"
+            android:screenOrientation="unspecified">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <service android:name=".CompanionTile1" android:label="Companion 1" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".CompanionTile2" android:label="Companion 2" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".CompanionTile3" android:label="Companion 3" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".CompanionTile4" android:label="Companion 4" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+            <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
+        </service>
+        <service android:name=".CompanionTile5" android:label="Companion 5" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile6" android:label="Companion 6" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile7" android:label="Companion 7" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile8" android:label="Companion 8" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile9" android:label="Companion 9" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile10" android:label="Companion 10" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile11" android:label="Companion 11" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile12" android:label="Companion 12" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <activity android:name=".WidgetConfigActivity" android:exported="true" android:theme="@style/Theme.Companion"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter></activity>
+        <service android:name=".WidgetSatelliteService" android:exported="false" android:foregroundServiceType="remoteMessaging" />
+        <service android:name=".ControlSatelliteService" android:exported="false" android:foregroundServiceType="remoteMessaging" />
+        <receiver android:name=".WidgetRestoreReceiver" android:exported="false">
+            <intent-filter>
+                <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".CompanionWidget1x1" android:label="Companion Satellite 1×1" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_1x1" /></receiver>
+        <receiver android:name=".CompanionWidget2x2" android:label="Companion Satellite 2×2" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_2x2" /></receiver>
+        <receiver android:name=".CompanionWidget3x2" android:label="Companion Satellite 3×2" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_3x2" /></receiver>
+        <receiver android:name=".CompanionWidget4x2" android:label="Companion Satellite 4×2" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_4x2" /></receiver>
+        <receiver android:name=".CompanionWidgetRotary" android:label="旋鈕" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.ROTARY_LEFT" /><action android:name="com.companion.mobile.ROTARY_PRESS" /><action android:name="com.companion.mobile.ROTARY_RIGHT" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_rotary" /></receiver>
+        <receiver android:name=".CompanionWidget4x4" android:label="Companion Satellite 4×4" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_4x4" /></receiver>
+        <receiver android:name=".CompanionWidget4x1" android:label="Companion Satellite 4×1" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_4x1" /></receiver>
+        <receiver android:name=".CompanionWidget1x4" android:label="Companion Satellite 1×4" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_1x4" /></receiver>
+        <receiver android:name=".CompanionWidget4x3" android:label="Companion Satellite 4×3" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_4x3" /></receiver>
+        <receiver android:name=".CompanionWidgetMixed4x4" android:label="Companion 4×4 + 旋鈕" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.WIDGET_PRESS" /><action android:name="com.companion.mobile.ROTARY_ROTATE" /><action android:name="com.companion.mobile.ROTARY_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_mixed_4x4" /></receiver>
+        <receiver android:name=".CompanionWidgetRotary4x1" android:label="旋鈕 4×1" android:exported="true"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_UPDATE" /><action android:name="com.companion.mobile.ROTARY_ROTATE" /><action android:name="com.companion.mobile.ROTARY_PRESS" /></intent-filter><meta-data android:name="android.appwidget.provider" android:resource="@xml/companion_widget_rotary_4x1" /></receiver>
+    </application>
+</manifest>

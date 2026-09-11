@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@drawable/widget_background" android:padding="8dp">
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/control1" style="@style/WidgetButton"/><TextView android:id="@+id/control2" style="@style/WidgetButton"/>
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+        <TextView android:id="@+id/control3" style="@style/WidgetButton"/><TextView android:id="@+id/control4" style="@style/WidgetButton"/>
+    </LinearLayout>
+</LinearLayout>

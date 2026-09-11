@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="vertical" android:background="@android:color/transparent" android:padding="2dp">
+ <LinearLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+  <ImageButton android:id="@+id/key1" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key2" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key3" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key4" style="@style/SatelliteKey"/>
+ </LinearLayout>
+ <LinearLayout android:id="@+id/widget_row2" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal">
+  <ImageButton android:id="@+id/key5" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key6" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key7" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key8" style="@style/SatelliteKey"/>
+ </LinearLayout>
+ <LinearLayout android:id="@+id/widget_row3" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal" android:visibility="gone">
+  <ImageButton android:id="@+id/key9" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key10" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key11" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key12" style="@style/SatelliteKey"/>
+ </LinearLayout>
+ <LinearLayout android:id="@+id/widget_row4" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:orientation="horizontal" android:visibility="gone">
+  <ImageButton android:id="@+id/key13" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key14" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key15" style="@style/SatelliteKey"/><ImageButton android:id="@+id/key16" style="@style/SatelliteKey"/>
+ </LinearLayout>
+</LinearLayout>

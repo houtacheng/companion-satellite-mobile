@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="4dp" android:background="@android:color/transparent">
+ <ImageView android:id="@+id/rotary_image" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitCenter" />
+ <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+  <ImageButton android:id="@+id/rotary_left" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="逆時針" />
+  <ImageButton android:id="@+id/rotary_press" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="按下旋鈕" />
+  <ImageButton android:id="@+id/rotary_right" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="順時針" />
+ </LinearLayout>
+</FrameLayout>
