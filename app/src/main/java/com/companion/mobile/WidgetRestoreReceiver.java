@@ -8,5 +8,6 @@ public class WidgetRestoreReceiver extends BroadcastReceiver {
     @Override public void onReceive(Context context, Intent intent) {
         WidgetRestorer.restoreAll(context);
         ControlSatelliteService.startAll(context);
+        FloatingControlService.restore(context);
     }
 }

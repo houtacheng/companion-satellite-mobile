@@ -8,6 +8,7 @@ Companion Satellite Mobile turns Android and iPhone home-screen widgets and syst
 - Automatic LAN/internet switching for each Companion host.
 - Multiple independently configured hosts.
 - Android Quick Settings controls and live home-screen widgets.
+- Multiple movable always-on-top Android Satellite rotary controls.
 - iOS Control Center actions and interactive widgets.
 - Widget layouts: 1×1, 3×2, 4×4, rotary 1×1, and 4×4 with rotary controls.
 - CSV host import/export with duplicate detection.

@@ -4,6 +4,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_REMOTE_MESSAGING" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_SPECIAL_USE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <application
@@ -24,29 +26,32 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".CompanionTile1" android:label="Companion 1" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+        <service android:name=".CompanionTile1" android:label="Companion 1" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
             <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
         </service>
-        <service android:name=".CompanionTile2" android:label="Companion 2" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+        <service android:name=".CompanionTile2" android:label="Companion 2" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
             <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
         </service>
-        <service android:name=".CompanionTile3" android:label="Companion 3" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+        <service android:name=".CompanionTile3" android:label="Companion 3" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
             <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
         </service>
-        <service android:name=".CompanionTile4" android:label="Companion 4" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
+        <service android:name=".CompanionTile4" android:label="Companion 4" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true">
             <intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter>
         </service>
-        <service android:name=".CompanionTile5" android:label="Companion 5" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile6" android:label="Companion 6" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile7" android:label="Companion 7" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile8" android:label="Companion 8" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile9" android:label="Companion 9" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile10" android:label="Companion 10" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile11" android:label="Companion 11" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
-        <service android:name=".CompanionTile12" android:label="Companion 12" android:icon="@drawable/bitfocus_companion" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile5" android:label="Companion 5" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile6" android:label="Companion 6" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile7" android:label="Companion 7" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile8" android:label="Companion 8" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile9" android:label="Companion 9" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile10" android:label="Companion 10" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile11" android:label="Companion 11" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
+        <service android:name=".CompanionTile12" android:label="Companion 12" android:icon="@drawable/companion_control" android:permission="android.permission.BIND_QUICK_SETTINGS_TILE" android:exported="true"><intent-filter><action android:name="android.service.quicksettings.action.QS_TILE" /></intent-filter></service>
         <activity android:name=".WidgetConfigActivity" android:exported="true" android:theme="@style/Theme.Companion"><intent-filter><action android:name="android.appwidget.action.APPWIDGET_CONFIGURE" /></intent-filter></activity>
         <service android:name=".WidgetSatelliteService" android:exported="false" android:foregroundServiceType="remoteMessaging" />
         <service android:name=".ControlSatelliteService" android:exported="false" android:foregroundServiceType="remoteMessaging" />
+        <service android:name=".FloatingControlService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-configured movable Companion Satellite controls displayed over other apps" />
+        </service>
         <receiver android:name=".WidgetRestoreReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
