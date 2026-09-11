@@ -19,3 +19,5 @@ local.properties
 Zen.png
 空山按鈕*.png
 /bitfocus-companion.png
+.playwright-cli/
+output/

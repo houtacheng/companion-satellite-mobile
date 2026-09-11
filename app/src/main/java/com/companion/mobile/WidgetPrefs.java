@@ -8,5 +8,7 @@ public final class WidgetPrefs {
  public static String host(Context c,int id){return p(c).getString("h"+id,"");} public static int rows(Context c,int id){return p(c).getInt("r"+id,1);} public static int cols(Context c,int id){return p(c).getInt("c"+id,1);}
  public static boolean rotary(Context c,int id){return p(c).getBoolean("k"+id,false);}
  public static String mode(Context c,int id){return p(c).getString("m"+id,rotary(c,id)?"rotary1":"grid");}
- public static void remove(Context c,int id){p(c).edit().remove("h"+id).remove("r"+id).remove("c"+id).remove("k"+id).remove("m"+id).apply();}
+ public static boolean interactive(Context c,int id){return p(c).getBoolean("i"+id,true);}
+ public static void setInteractive(Context c,int id,boolean enabled){p(c).edit().putBoolean("i"+id,enabled).apply();}
+ public static void remove(Context c,int id){p(c).edit().remove("h"+id).remove("r"+id).remove("c"+id).remove("k"+id).remove("m"+id).remove("i"+id).apply();}
 }

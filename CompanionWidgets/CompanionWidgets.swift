@@ -202,7 +202,8 @@ struct CompanionWidgetIntent: WidgetConfigurationIntent {
     @Parameter(title:"名稱", default:"Companion") var name:String
     @Parameter(title:"主機") var host:CompanionHostEntity?
     @Parameter(title:"Surface 編號", default:1) var page:Int
-    init(){name="Companion";host=nil;page=1}
+    @Parameter(title:"允許按下與旋轉", default:true) var interactive:Bool
+    init(){name="Companion";host=nil;page=1;interactive=true}
 }
 
 struct CompanionEntry: TimelineEntry { let date:Date;let configuration:CompanionWidgetIntent;let visuals:[KeyVisual] }
@@ -224,8 +225,9 @@ private struct CompanionGrid:View {
                     let index=r*columns+c
                     let serial="widget-\(entry.configuration.host?.id ?? "none")-\(surfaceTag)-\(columns)x\(rows)-\(entry.configuration.page)"
                     let visual=entry.visuals.indices.contains(index) ? entry.visuals[index]:KeyVisual(text:"\(index+1)")
-                    if rotaryRows.contains(r) { RotaryCell(visual:visual,internet:entry.configuration.host?.internetURL ?? "",serial:serial,rows:rows,columns:columns,index:index) }
-                    else { Button(intent:CompanionPressIntent(internet:entry.configuration.host?.internetURL ?? "",local:entry.configuration.host?.localURL ?? "",serial:serial,rows:rows,columns:columns,index:index)){KeyFace(visual:visual,round:true)}.buttonStyle(.plain) }
+                    if rotaryRows.contains(r) { RotaryCell(visual:visual,internet:entry.configuration.host?.internetURL ?? "",serial:serial,rows:rows,columns:columns,index:index,interactive:entry.configuration.interactive) }
+                    else if entry.configuration.interactive { Button(intent:CompanionPressIntent(internet:entry.configuration.host?.internetURL ?? "",local:entry.configuration.host?.localURL ?? "",serial:serial,rows:rows,columns:columns,index:index)){KeyFace(visual:visual,round:true)}.buttonStyle(.plain) }
+                    else { KeyFace(visual:visual,round:true) }
                 }}
             }
         }.padding(safeInset).containerBackground(Color.clear,for:.widget)
@@ -233,7 +235,7 @@ private struct CompanionGrid:View {
 }
 
 private struct KeyFace:View {let visual:KeyVisual;let round:Bool;var body:some View{ZStack{(round ? AnyShape(RoundedRectangle(cornerRadius:9,style:.continuous)):AnyShape(Circle())).fill(Color(hex:visual.background));if let data=visual.image,let image=UIImage(data:data){Image(uiImage:image).resizable().scaledToFill().clipShape(round ? AnyShape(RoundedRectangle(cornerRadius:9,style:.continuous)):AnyShape(Circle()))};(round ? AnyShape(RoundedRectangle(cornerRadius:9,style:.continuous)):AnyShape(Circle())).stroke(Color.gray.opacity(0.8),lineWidth:1);if visual.image==nil{Text(visual.text).minimumScaleFactor(0.3).foregroundStyle(Color(hex:visual.foreground))}}.aspectRatio(1,contentMode:.fit)}}
-private struct RotaryCell:View {let visual:KeyVisual;let internet:String;let serial:String;let rows:Int;let columns:Int;let index:Int;var body:some View{ZStack{KeyFace(visual:visual,round:false);HStack(spacing:0){Button(intent:CompanionRotateIntent(internet:internet,serial:serial,rows:rows,columns:columns,index:index,direction:-1)){Color.clear};Button(intent:CompanionPressIntent(internet:internet,local:"",serial:serial,rows:rows,columns:columns,index:index)){Color.clear};Button(intent:CompanionRotateIntent(internet:internet,serial:serial,rows:rows,columns:columns,index:index,direction:1)){Color.clear}}.buttonStyle(.plain)}}}
+private struct RotaryCell:View {let visual:KeyVisual;let internet:String;let serial:String;let rows:Int;let columns:Int;let index:Int;let interactive:Bool;var body:some View{ZStack{KeyFace(visual:visual,round:false);if interactive{HStack(spacing:0){Button(intent:CompanionRotateIntent(internet:internet,serial:serial,rows:rows,columns:columns,index:index,direction:-1)){Color.clear};Button(intent:CompanionPressIntent(internet:internet,local:"",serial:serial,rows:rows,columns:columns,index:index)){Color.clear};Button(intent:CompanionRotateIntent(internet:internet,serial:serial,rows:rows,columns:columns,index:index,direction:1)){Color.clear}}.buttonStyle(.plain)}}}}
 
 struct CompanionWidget1x1:Widget {
     var body:some WidgetConfiguration { AppIntentConfiguration(kind:"Companion1x1",intent:CompanionWidgetIntent.self,provider:Provider1x1()){CompanionGrid(entry:$0,rows:1,columns:1)}.configurationDisplayName("Companion 1×1").description("直接操作 Companion，不會開啟 App。").supportedFamilies([.systemSmall]).contentMarginsDisabled() }
