@@ -10,5 +10,7 @@ public final class WidgetPrefs {
  public static String mode(Context c,int id){return p(c).getString("m"+id,rotary(c,id)?"rotary1":"grid");}
  public static boolean interactive(Context c,int id){return p(c).getBoolean("i"+id,true);}
  public static void setInteractive(Context c,int id,boolean enabled){p(c).edit().putBoolean("i"+id,enabled).apply();}
- public static void remove(Context c,int id){p(c).edit().remove("h"+id).remove("r"+id).remove("c"+id).remove("k"+id).remove("m"+id).remove("i"+id).apply();}
+ public static int opacity(Context c,int id){return p(c).getInt("o"+id,100);}
+ public static void setOpacity(Context c,int id,int opacity){p(c).edit().putInt("o"+id,Math.max(5,Math.min(100,opacity))).apply();}
+ public static void remove(Context c,int id){p(c).edit().remove("h"+id).remove("r"+id).remove("c"+id).remove("k"+id).remove("m"+id).remove("i"+id).remove("o"+id).apply();}
 }

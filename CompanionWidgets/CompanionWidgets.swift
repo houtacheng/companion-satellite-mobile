@@ -203,7 +203,8 @@ struct CompanionWidgetIntent: WidgetConfigurationIntent {
     @Parameter(title:"主機") var host:CompanionHostEntity?
     @Parameter(title:"Surface 編號", default:1) var page:Int
     @Parameter(title:"允許按下與旋轉", default:true) var interactive:Bool
-    init(){name="Companion";host=nil;page=1;interactive=true}
+    @Parameter(title:"透明度（5～100）", default:100) var opacity:Int
+    init(){name="Companion";host=nil;page=1;interactive=true;opacity=100}
 }
 
 struct CompanionEntry: TimelineEntry { let date:Date;let configuration:CompanionWidgetIntent;let visuals:[KeyVisual] }
@@ -230,7 +231,7 @@ private struct CompanionGrid:View {
                     else { KeyFace(visual:visual,round:true) }
                 }}
             }
-        }.padding(safeInset).containerBackground(Color.clear,for:.widget)
+        }.padding(safeInset).opacity(Double(max(5,min(100,entry.configuration.opacity)))/100).containerBackground(Color.clear,for:.widget)
     }
 }
 

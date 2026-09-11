@@ -9,5 +9,6 @@ public class WidgetRestoreReceiver extends BroadcastReceiver {
         WidgetRestorer.restoreAll(context);
         ControlSatelliteService.startAll(context);
         FloatingControlService.restore(context);
+        FloatingLauncherService.restore(context);
     }
 }

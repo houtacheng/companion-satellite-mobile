@@ -52,6 +52,9 @@
         <service android:name=".FloatingControlService" android:exported="false" android:foregroundServiceType="specialUse">
             <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-configured movable Companion Satellite controls displayed over other apps" />
         </service>
+        <service android:name=".FloatingLauncherService" android:exported="false" android:foregroundServiceType="specialUse">
+            <property android:name="android.app.PROPERTY_SPECIAL_USE_FGS_SUBTYPE" android:value="User-enabled movable shortcut that opens the Companion app" />
+        </service>
         <receiver android:name=".WidgetRestoreReceiver" android:exported="false">
             <intent-filter>
                 <action android:name="android.intent.action.MY_PACKAGE_REPLACED" />
