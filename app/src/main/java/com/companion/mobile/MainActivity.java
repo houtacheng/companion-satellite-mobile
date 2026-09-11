@@ -32,8 +32,9 @@ public class MainActivity extends Activity {
         String name, url, lan, satellite;
         Host(String name, String url) { this(name,url,""); }
         Host(String name, String url,String lan) { this.name = name; this.url = url; this.lan=lan; this.satellite=defaultSatellite(url); }
-        static String defaultSatellite(String url){Uri u=Uri.parse(url);String authority=u.getEncodedAuthority();if(authority==null)return "";return "wss://"+authority+"/satellite";}
-        String route(){return lan.isEmpty()?satellite:NetworkRoute.auto(lan,satellite);}
+        static String defaultSatellite(String url){Uri u=Uri.parse(url);String authority=u.getEncodedAuthority();return authority==null?"":"wss://"+authority+"/satellite";}
+        static boolean isPrivateHost(String host){if("localhost".equalsIgnoreCase(host)||host.endsWith(".local"))return true;try{java.net.InetAddress a=java.net.InetAddress.getByName(host);return a.isAnyLocalAddress()||a.isLoopbackAddress()||a.isLinkLocalAddress()||a.isSiteLocalAddress();}catch(Exception ignored){return false;}}
+        String route(){String host=Uri.parse(url).getHost();boolean localUrl=host!=null&&isPrivateHost(host);String local=!lan.isEmpty()?lan:(localUrl?url:"");String remote=localUrl?"":satellite;return local.isEmpty()?satellite:NetworkRoute.auto(local,remote);}
     }
 
     @Override public void onCreate(Bundle state) {
@@ -236,7 +237,7 @@ public class MainActivity extends Activity {
 
     private void open(String url) { empty.setVisibility(View.GONE); web.setVisibility(View.VISIBLE); prefs.edit().putString("active",url).apply();Host found=null;for(Host h:hosts)if(h.url.equals(url)){found=h;title.setText(h.name);break;}if(found==null||found.lan.isEmpty()){web.loadUrl(url);return;}Host target=found;new Thread(()->{boolean local=NetworkRoute.lanAvailable(target.lan);runOnUiThread(()->{Toast.makeText(this,local?"使用區網連線":"區網不可用，使用網際網路連線",Toast.LENGTH_SHORT).show();web.loadUrl(local?target.lan:target.url);});}).start(); }
 
-    private void loadHosts() { try { JSONArray a=new JSONArray(prefs.getString("hosts","[]")); for(int i=0;i<a.length();i++){ JSONObject o=a.getJSONObject(i);String url=o.getString("url");hosts.add(new Host(o.getString("name"),url,o.optString("lan",""))); } } catch(Exception ignored) {} }
+    private void loadHosts() { try { JSONArray a=new JSONArray(prefs.getString("hosts","[]")); for(int i=0;i<a.length();i++){ JSONObject o=a.getJSONObject(i);String url=o.getString("url"),lan=o.optString("lan","");Host host=new Host(o.getString("name"),url,lan);String savedSatellite=o.optString("satellite",host.satellite),legacyRoute=lan.isEmpty()?savedSatellite:NetworkRoute.auto(lan,savedSatellite),route=host.route();if(!savedSatellite.equals(route))NetworkRoute.migrate(this,savedSatellite,route);if(!legacyRoute.equals(route))NetworkRoute.migrate(this,legacyRoute,route);hosts.add(host); } } catch(Exception ignored) {} }
     private void saveHosts() { JSONArray a=new JSONArray(); try { for(Host h:hosts){ JSONObject o=new JSONObject(); o.put("name",h.name);o.put("url",h.url);o.put("lan",h.lan);o.put("satellite",h.satellite);a.put(o); } } catch(Exception ignored) {} prefs.edit().putString("hosts",a.toString()).apply(); }
 
     private void chooseImportCSV(){Intent i=new Intent(Intent.ACTION_OPEN_DOCUMENT).setType("text/*").addCategory(Intent.CATEGORY_OPENABLE);startActivityForResult(i,IMPORT_HOSTS_CSV);}
