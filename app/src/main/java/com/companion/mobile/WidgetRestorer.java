@@ -11,7 +11,8 @@ public final class WidgetRestorer {
         CompanionWidget1x1.class, CompanionWidget2x2.class, CompanionWidget3x2.class,
         CompanionWidget4x1.class, CompanionWidget1x4.class, CompanionWidget4x2.class,
         CompanionWidget4x3.class, CompanionWidget4x4.class, CompanionWidgetRotary.class,
-        CompanionWidgetMixed4x4.class, CompanionWidgetRotary4x1.class
+        CompanionWidgetMixed4x4.class, CompanionWidgetRotary4x1.class,
+        CompanionWidgetFader.class, CompanionWidgetFader4x1.class
     };
 
     public static void restoreAll(Context context) {

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="3dp">
+ <ImageView android:id="@+id/fader_image" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+ <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+  <ImageButton android:id="@+id/fader_dec1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="向左旋轉" />
+  <ImageButton android:id="@+id/fader_press1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="按下" />
+  <ImageButton android:id="@+id/fader_inc1" android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:background="@android:color/transparent" android:contentDescription="向右旋轉" />
+ </LinearLayout>
+</FrameLayout>

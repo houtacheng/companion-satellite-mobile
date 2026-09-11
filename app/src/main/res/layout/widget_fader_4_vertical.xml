@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent" android:padding="3dp">
+ <ImageView android:id="@+id/fader_image" android:layout_width="match_parent" android:layout_height="match_parent" android:scaleType="fitXY" />
+ <LinearLayout android:layout_width="match_parent" android:layout_height="match_parent" android:orientation="horizontal">
+  <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical"><ImageButton android:id="@+id/fader_inc1" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_press1" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_dec1" style="@style/FaderZoneV"/></LinearLayout>
+  <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical"><ImageButton android:id="@+id/fader_inc2" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_press2" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_dec2" style="@style/FaderZoneV"/></LinearLayout>
+  <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical"><ImageButton android:id="@+id/fader_inc3" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_press3" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_dec3" style="@style/FaderZoneV"/></LinearLayout>
+  <LinearLayout android:layout_width="0dp" android:layout_height="match_parent" android:layout_weight="1" android:orientation="vertical"><ImageButton android:id="@+id/fader_inc4" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_press4" style="@style/FaderZoneV"/><ImageButton android:id="@+id/fader_dec4" style="@style/FaderZoneV"/></LinearLayout>
+ </LinearLayout>
+</FrameLayout>
