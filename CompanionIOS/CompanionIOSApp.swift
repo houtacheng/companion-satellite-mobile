@@ -52,12 +52,17 @@ struct TriggerCompanionShortcutIntent: AppIntent {
     }
 }
 
+struct OpenCompanionShortcutIntent: AppIntent {
+    static var title: LocalizedStringResource = "啟動 Companion"
+    static var description = IntentDescription("直接開啟 Companion App。")
+    static var openAppWhenRun = true
+    func perform() async throws -> some IntentResult { .result() }
+}
+
 struct CompanionAppShortcuts: AppShortcutsProvider {
     static var appShortcuts: [AppShortcut] {
-        AppShortcut(intent: TriggerCompanionShortcutIntent(), phrases: [
-            "用 \(.applicationName) 觸發控制項",
-            "在 \(.applicationName) 執行控制項"
-        ], shortTitle: "觸發 Companion", systemImageName: "button.programmable")
+        AppShortcut(intent: TriggerCompanionShortcutIntent(), phrases: ["用 \(.applicationName) 觸發控制項","在 \(.applicationName) 執行控制項"], shortTitle: "觸發 Companion", systemImageName: "button.programmable")
+        AppShortcut(intent: OpenCompanionShortcutIntent(), phrases: ["啟動 \(.applicationName)","開啟 \(.applicationName)"], shortTitle: "啟動 Companion", systemImageName: "arrow.up.forward.app")
     }
 }
 
