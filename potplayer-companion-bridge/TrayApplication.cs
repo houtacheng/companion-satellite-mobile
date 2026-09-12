@@ -100,9 +100,9 @@ sealed class BridgeTray : ApplicationContext
         menu.Items.Add("開啟設定資料夾", null, (_, _) => Open(BridgePaths.Data));
         menu.Items.Add(new ToolStripSeparator());
         menu.Items.Add("結束", null, (_, _) => Shutdown());
-        icon = new NotifyIcon { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? SystemIcons.Application, Text = "PotPlayer Bridge 0.3.0", ContextMenuStrip = menu, Visible = true };
+        icon = new NotifyIcon { Icon = Icon.ExtractAssociatedIcon(Application.ExecutablePath) ?? SystemIcons.Application, Text = "PotPlayer Bridge 0.4.0", ContextMenuStrip = menu, Visible = true };
         icon.DoubleClick += (_, _) => ShowSettings(settings);
-        BridgeLog.Write("PotPlayer Bridge 0.3.0 tray started");
+        BridgeLog.Write("PotPlayer Bridge 0.4.0 tray started");
         server = error != null ? Task.FromException(error) : Task.Run(() => BridgeServer.Run(args, settings!, stop.Token));
         timer.Tick += (_, _) =>
         {
@@ -115,7 +115,7 @@ sealed class BridgeTray : ApplicationContext
                 timer.Stop();
             }
             else if (server.IsCompleted) { status.Text = "服務已停止"; timer.Stop(); }
-            else { status.Text = $"Bridge 0.3.0 · Port {settings?.Port}"; }
+            else { status.Text = $"Bridge 0.4.0 · Port {settings?.Port}"; }
         };
         timer.Start();
     }
