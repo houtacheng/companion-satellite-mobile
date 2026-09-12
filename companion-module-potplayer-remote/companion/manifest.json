@@ -5,7 +5,7 @@
 	"name": "PotPlayer Remote",
 	"shortname": "PotPlayer",
 	"description": "Control PotPlayer for Windows through Companion Bridge and receive live playback status",
-	"version": "0.2.1",
+	"version": "0.3.0",
 	"license": "MIT",
 	"repository": "git+https://github.com/houtacheng/companion-satellite-mobile.git",
 	"bugs": "https://github.com/houtacheng/companion-satellite-mobile/issues",

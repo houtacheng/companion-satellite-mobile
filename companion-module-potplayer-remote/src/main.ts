@@ -273,6 +273,8 @@ export default class ModuleInstance extends InstanceBase<ModuleSchema> {
 			subtitle_visible: state.subtitleVisible,
 			loop_file: state.loopFile,
 			loop_playlist: state.loopPlaylist,
+			playback_mode: state.playbackMode,
+			shuffle: state.shuffle,
 			filename: state.filename || state.title,
 			video_info: state.videoInfo || '',
 			end_behavior: state.endBehavior || 'hold',

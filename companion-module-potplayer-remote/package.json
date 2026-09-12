@@ -1,6 +1,6 @@
 {
   "name": "potplayer-remote",
-	"version": "0.2.1",
+	"version": "0.3.0",
   "description": "Control PotPlayer through the Windows Companion Bridge",
   "main": "dist/main.js",
   "type": "module",

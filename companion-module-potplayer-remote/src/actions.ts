@@ -24,7 +24,7 @@ export type ActionsSchema = {
 	playlist_manage: { options: { operation: string; url: string } }
 	ab_loop: { options: { operation: string } }
 	subtitle_visibility: { options: { enabled: boolean } }
-	loop: { options: { target: string; mode: string } }
+	loop: { options: { mode: string } }
 	set_rotation: { options: { degrees: string } }
 	set_aspect: { options: { aspect: string } }
 	video_adjustment: { options: { property: string; amount: number } }
@@ -266,19 +266,29 @@ export function UpdateActions(self: ModuleInstance): void {
 			name: '循環播放設定',
 			options: [
 				{
-					id: 'target',
+					id: 'mode',
 					type: 'dropdown',
-					label: '目標',
-					default: 'file',
+					label: '播放模式',
+					default: 'auto_next',
 					choices: [
-						{ id: 'file', label: '目前檔案' },
-						{ id: 'playlist', label: '播放清單' },
+						{ id: 'no_repeat', label: '不循環（不自動下一首）' },
+						{ id: 'repeat_one', label: '單曲循環' },
+						{ id: 'auto_next', label: '自動下一首（清單結束不循環）' },
+						{ id: 'repeat_playlist', label: '清單循環' },
+						{ id: 'shuffle', label: '隨機播放' },
 					],
 				},
-				{ id: 'mode', type: 'dropdown', label: '模式', default: 'toggle', choices: [{ id: 'toggle', label: '切換' }] },
 			],
-			callback: async (event) =>
-				self.sendCommand(event.options.target === 'file' ? 'toggle_loop_file' : 'toggle_loop_playlist'),
+			callback: async (event) => {
+				const legacyTarget = (event.options as Record<string, unknown>).target
+				const mode =
+					event.options.mode === 'toggle'
+						? legacyTarget === 'playlist'
+							? 'repeat_playlist'
+							: 'repeat_one'
+						: event.options.mode
+				self.sendCommand('set_playback_mode', { mode })
+			},
 		},
 		set_rotation: {
 			name: '旋轉影片',

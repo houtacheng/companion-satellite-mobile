@@ -23,7 +23,7 @@ var controller = new PotPlayerController(settings);
 var clients = new ConcurrentDictionary<Guid, WebSocket>();
 var jsonOptions = new JsonSerializerOptions(JsonSerializerDefaults.Web);
 
-app.MapGet("/", () => Results.Json(new { name = "PotPlayer Companion Bridge", version = "0.3.0", status = "running", websocket = "/ws" }));
+app.MapGet("/", () => Results.Json(new { name = "PotPlayer Companion Bridge", version = "0.4.0", status = "running", websocket = "/ws" }));
 app.Map("/ws", async (HttpContext context) =>
 {
     if (!context.WebSockets.IsWebSocketRequest) { context.Response.StatusCode = 400; return; }
@@ -145,7 +145,8 @@ sealed class PotPlayerController
     readonly BridgeSettings settings;
     string currentUrl = "";
     bool fullscreen, onTop, subtitleVisible = true, autoCloseOnEnd, closeScheduled;
-    string loopFile = "no", loopPlaylist = "no";
+    string loopFile = "no", loopPlaylist = "no", playbackMode = "auto_next";
+    bool shuffle;
     int abLoopStep;
     int previousStatus;
     bool playbackFinished;
@@ -159,8 +160,20 @@ sealed class PotPlayerController
         var status = Query(window, GetPlayStatus);
         var durationMs = Math.Max(0, Query(window, GetTotalTime));
         var positionMs = Math.Clamp(Query(window, GetCurrentTime), 0, Math.Max(durationMs, 0));
+        if (playbackMode == "no_repeat" && status == 2 && durationMs > 0 && positionMs >= durationMs - 600)
+        {
+            Send(window, WmCommand, 20002, 0);
+            status = 0;
+            positionMs = durationMs;
+            playbackFinished = true;
+        }
         if (previousStatus == 2 && status == 0 && durationMs > 0 && positionMs >= durationMs - 1500) playbackFinished = true;
         if (status == 2) { playbackFinished = false; closeScheduled = false; }
+        if (playbackFinished && playbackMode == "no_repeat" && !autoCloseOnEnd && !closeScheduled)
+        {
+            closeScheduled = true;
+            Send(window, WmCommand, 20002, 0);
+        }
         if (playbackFinished && autoCloseOnEnd && !closeScheduled)
         {
             closeScheduled = true;
@@ -179,13 +192,13 @@ sealed class PotPlayerController
             fullscreen, pip = false, ontop = onTop, playlistPosition = -1, playlistCount = 0,
             chapter = -1, chapterCount = 0, audioTrack = (int?)null, videoTrack = (int?)null, subtitleTrack = (int?)null,
             secondSubtitleTrack = (int?)null, audioDelay = 0, subtitleDelay = 0, subtitleVisible,
-            loopFile, loopPlaylist, filename = !string.IsNullOrWhiteSpace(currentUrl) ? Path.GetFileName(currentUrl) : title,
-            videoInfo = VideoInfo(window), endBehavior = autoCloseOnEnd ? "close" : loopFile == "inf" ? "loop" : "hold",
+            loopFile, loopPlaylist, playbackMode, shuffle, filename = !string.IsNullOrWhiteSpace(currentUrl) ? Path.GetFileName(currentUrl) : title,
+            videoInfo = VideoInfo(window), endBehavior = autoCloseOnEnd ? "close" : playbackMode,
             timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds()
         };
     }
 
-    object EmptyState() => new { playback = "idle", paused = true, idle = true, position = 0, duration = 0, remaining = 0, remainingSeconds = 0, playbackFinished = false, progress = 0, speed = 1, volume = 0, muted = false, title = "PotPlayer 未執行", url = "", fullscreen = false, pip = false, ontop = false, playlistPosition = -1, playlistCount = 0, chapter = -1, chapterCount = 0, audioTrack = (int?)null, videoTrack = (int?)null, subtitleTrack = (int?)null, secondSubtitleTrack = (int?)null, audioDelay = 0, subtitleDelay = 0, subtitleVisible = true, loopFile, loopPlaylist, filename = "", videoInfo = "", endBehavior = autoCloseOnEnd ? "close" : loopFile == "inf" ? "loop" : "hold", timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() };
+    object EmptyState() => new { playback = "idle", paused = true, idle = true, position = 0, duration = 0, remaining = 0, remainingSeconds = 0, playbackFinished = false, progress = 0, speed = 1, volume = 0, muted = false, title = "PotPlayer 未執行", url = "", fullscreen = false, pip = false, ontop = false, playlistPosition = -1, playlistCount = 0, chapter = -1, chapterCount = 0, audioTrack = (int?)null, videoTrack = (int?)null, subtitleTrack = (int?)null, secondSubtitleTrack = (int?)null, audioDelay = 0, subtitleDelay = 0, subtitleVisible = true, loopFile, loopPlaylist, playbackMode, shuffle, filename = "", videoInfo = "", endBehavior = autoCloseOnEnd ? "close" : playbackMode, timestamp = DateTimeOffset.UtcNow.ToUnixTimeMilliseconds() };
 
     public void Execute(string command, JsonElement args)
     {
@@ -222,11 +235,12 @@ sealed class PotPlayerController
             case "screenshot": Command(window, 10224); break;
             case "close_window": Send(window, WmClose, 0, 0); break;
             case "playlist_clear": Command(window, 10212); break;
-            case "playlist_shuffle": Command(window, 10069); break;
+            case "playlist_shuffle": Command(window, 10069); shuffle = !shuffle; playbackMode = shuffle ? "shuffle" : "auto_next"; break;
+            case "set_playback_mode": SetPlaybackMode(window, GetString(args, "mode")); break;
             case "ab_loop": AbLoop(window, GetString(args, "operation")); break;
             case "set_subtitle_visibility": if (subtitleVisible != GetBool(args, "enabled")) { Command(window, 10126); subtitleVisible = !subtitleVisible; } break;
-            case "toggle_loop_file": Command(window, 10497); loopFile = loopFile == "inf" ? "no" : "inf"; break;
-            case "toggle_loop_playlist": Command(window, 10496); loopPlaylist = loopPlaylist == "inf" ? "no" : "inf"; break;
+            case "toggle_loop_file": Command(window, 10497); loopFile = loopFile == "inf" ? "no" : "inf"; playbackMode = loopFile == "inf" ? "repeat_one" : "auto_next"; break;
+            case "toggle_loop_playlist": Command(window, 10496); loopPlaylist = loopPlaylist == "inf" ? "no" : "inf"; playbackMode = loopPlaylist == "inf" ? "repeat_playlist" : "auto_next"; break;
             case "set_rotation": SetRotation(window, (int)GetNumber(args, "degrees")); break;
             case "set_aspect": SetAspect(window, GetString(args, "aspect")); break;
             case "adjust_video": AdjustVideo(window, GetString(args, "property"), (int)GetNumber(args, "amount")); break;
@@ -277,6 +291,32 @@ sealed class PotPlayerController
         if (abLoopStep == 0) { Command(window, 10249); abLoopStep = 1; }
         else if (abLoopStep == 1) { Command(window, 10250); abLoopStep = 2; }
         else { Command(window, 10253); abLoopStep = 0; }
+    }
+
+    void SetPlaybackMode(IntPtr window, string mode)
+    {
+        if (mode is not ("no_repeat" or "repeat_one" or "auto_next" or "repeat_playlist" or "shuffle"))
+            throw new ArgumentException($"不支援的循環播放模式：{mode}");
+
+        SetToggle(window, 10497, ref loopFile, mode == "repeat_one");
+        SetToggle(window, 10496, ref loopPlaylist, mode == "repeat_playlist");
+        SetToggle(window, 10069, ref shuffle, mode == "shuffle");
+        playbackMode = mode;
+        playbackFinished = false;
+        closeScheduled = false;
+    }
+
+    static void SetToggle(IntPtr window, int command, ref string state, bool enabled)
+    {
+        var current = state == "inf";
+        if (current != enabled) Command(window, command);
+        state = enabled ? "inf" : "no";
+    }
+
+    static void SetToggle(IntPtr window, int command, ref bool state, bool enabled)
+    {
+        if (state != enabled) Command(window, command);
+        state = enabled;
     }
 
     static void SetRotation(IntPtr window, int degrees) => Command(window, degrees switch { 90 => 10614, 180 => 10615, 270 => 10616, _ => 10613 });

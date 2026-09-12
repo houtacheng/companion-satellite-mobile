@@ -29,6 +29,8 @@ export type PotPlayerPlaybackState = {
 	subtitleVisible: boolean
 	loopFile: string
 	loopPlaylist: string
+	playbackMode: string
+	shuffle: boolean
 	filename?: string
 	videoInfo?: string
 	endBehavior?: string
@@ -66,6 +68,8 @@ export const EmptyState: PotPlayerPlaybackState = {
 	subtitleVisible: true,
 	loopFile: 'no',
 	loopPlaylist: 'no',
+	playbackMode: 'auto_next',
+	shuffle: false,
 	filename: '',
 	videoInfo: '',
 	endBehavior: 'hold',
