@@ -118,7 +118,7 @@ public class MainActivity extends Activity {
         LinearLayout bar = new LinearLayout(this); bar.setGravity(Gravity.CENTER_VERTICAL); bar.setPadding(dp(8), 0, dp(8), 0);
         LinearLayout actions = new LinearLayout(this); actions.setGravity(Gravity.CENTER); actions.setPadding(dp(8),0,dp(8),dp(6));
         TextView menu = button("主機");
-        title = new TextView(this); title.setText("Companion"); title.setTextColor(Color.WHITE); title.setTextSize(18); title.setSingleLine(true); title.setPadding(18,0,8,0);
+        title = new TextView(this); title.setText("Companion"); title.setTextColor(Color.rgb(96,211,255)); title.setTextSize(17); title.setSingleLine(true); title.setGravity(Gravity.END|Gravity.CENTER_VERTICAL); title.setPadding(dp(8),0,dp(6),0);
         TextView controls = button("控制");
         TextView display = button("顯示");display.setPadding(dp(8),0,dp(8),0);display.setMinWidth(dp(48));
         TextView refresh = button("↻");
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
         empty = new TextView(this); empty.setGravity(Gravity.CENTER); empty.setTextSize(18); empty.setTextColor(dark?Color.LTGRAY:Color.DKGRAY); empty.setPadding(48,48,48,48);
         FrameLayout content = new FrameLayout(this); content.addView(web, new FrameLayout.LayoutParams(-1,-1)); content.addView(empty, new FrameLayout.LayoutParams(-1,-1));
         root.addView(header, new LinearLayout.LayoutParams(-1, dp(98))); root.addView(progress, new LinearLayout.LayoutParams(-1, dp(3))); root.addView(content, new LinearLayout.LayoutParams(-1,0,1)); setContentView(root);
-        menu.setOnClickListener(v -> showHosts()); controls.setOnClickListener(v -> showControls());display.setOnClickListener(v->showDisplaySettings()); refresh.setOnClickListener(v -> web.reload());
+        menu.setOnClickListener(v -> showHosts()); controls.setOnClickListener(v -> showControls());display.setOnClickListener(v->showDisplayMenu()); refresh.setOnClickListener(v -> web.reload());
         floatingToggle.setOnClickListener(v->toggleFloatingControls());launcherToggle.setOnClickListener(v->toggleLauncherBall());updateFloatingToggles();
     }
 
@@ -161,6 +161,8 @@ public class MainActivity extends Activity {
     }
 
     private void applyPageZoom(){int value=getSharedPreferences("companion_display",MODE_PRIVATE).getInt("zoom",70);double ratio=value/100.0,width=10000.0/value;String js="(function(){var e=document.documentElement;e.style.zoom='"+ratio+"';e.style.width='"+width+"%';document.body.style.maxWidth='none';})()";web.evaluateJavascript(js,null);}
+    private void showDisplayMenu(){new AlertDialog.Builder(this).setTitle("顯示").setItems(new String[]{"顯示與縮放","關於 Companion Satellite"},(d,w)->{if(w==0)showDisplaySettings();else showAbout();}).setNegativeButton("取消",null).show();}
+    private void showAbout(){String version="未知";try{version=getPackageManager().getPackageInfo(getPackageName(),0).versionName;}catch(Exception ignored){}new AlertDialog.Builder(this).setTitle("關於 Companion Satellite").setIcon(R.drawable.bitfocus_companion).setMessage("Companion Satellite Mobile\n\n目前安裝版本：v"+version+"\n\n將 Android 裝置變成 Bitfocus Companion Satellite 控制面板。\n\nIndependent project · Not affiliated with Bitfocus AS").setPositiveButton("確定",null).show();}
     private void showDisplaySettings(){android.content.SharedPreferences p=getSharedPreferences("companion_display",MODE_PRIVATE);LinearLayout box=new LinearLayout(this);box.setOrientation(LinearLayout.VERTICAL);box.setPadding(dp(20),dp(8),dp(20),0);TextView zoomLabel=new TextView(this);SeekBar zoom=new SeekBar(this);zoom.setMin(40);zoom.setMax(140);zoom.setProgress(p.getInt("zoom",70));zoomLabel.setText("頁面縮放："+zoom.getProgress()+"%");zoom.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener(){public void onProgressChanged(SeekBar b,int value,boolean user){zoomLabel.setText("頁面縮放："+value+"%");if(user){p.edit().putInt("zoom",value).apply();applyPageZoom();}}public void onStartTrackingTouch(SeekBar b){}public void onStopTrackingTouch(SeekBar b){}});CheckBox dark=new CheckBox(this);dark.setText("App 與內嵌頁面使用暗色模式");dark.setChecked(p.getBoolean("dark",false));TextView hint=new TextView(this);hint.setText("縮放時會同步調整網頁版面寬度，避免按鈕與設定欄位被擠壓；仍可使用雙指縮放。建議先使用 70%。");hint.setPadding(0,dp(8),0,0);box.addView(zoomLabel);box.addView(zoom);box.addView(dark);box.addView(hint);new AlertDialog.Builder(this).setTitle("顯示與縮放").setView(box).setPositiveButton("套用",(d,w)->{boolean themeChanged=dark.isChecked()!=p.getBoolean("dark",false);p.edit().putInt("zoom",zoom.getProgress()).putBoolean("dark",dark.isChecked()).apply();if(themeChanged)recreate();else applyPageZoom();}).setNegativeButton("取消",null).show();}
 
     private void openFloatingEditor(Intent intent){if(intent==null)return;String id=intent.getStringExtra(EXTRA_EDIT_FLOATING);intent.removeExtra(EXTRA_EDIT_FLOATING);if(id==null)return;for(FloatingControlStore.Item item:FloatingControlStore.all(this))if(item.id.equals(id)){if(item.fader)editFloatingFaderLive(item);else editFloatingLive(item);return;}Toast.makeText(this,"找不到這顆懸浮控制項",Toast.LENGTH_SHORT).show();}
