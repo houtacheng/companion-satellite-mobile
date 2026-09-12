@@ -25,7 +25,7 @@ export function UpdatePresets(self: ModuleInstance): void {
 		toggle: {
 			type: 'simple',
 			name: '播放／暫停',
-			style: { text: '▶ / Ⅱ', size: 'auto', color: white, bgcolor: dark, show_topbar: false },
+			style: { text: '▶︎/❙❙', size: 'auto', color: white, bgcolor: dark, show_topbar: false },
 			steps: [{ down: [{ actionId: 'transport', options: { operation: 'toggle_play_pause' } }], up: [] }],
 			feedbacks: [
 				{ feedbackId: 'is_playing', options: {}, style: { color: white, bgcolor: combineRgb(0, 150, 70) } },
