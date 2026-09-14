@@ -1,9 +1,0 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
-  <PropertyGroup>
-    <EnableDefaultContentItems>false</EnableDefaultContentItems><OutputType>WinExe</OutputType><UseWindowsForms>true</UseWindowsForms><Version>0.4.0</Version><PublishSingleFile>true</PublishSingleFile><SelfContained>true</SelfContained><IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract><DebugType>none</DebugType><TargetFramework>net8.0-windows</TargetFramework><ApplicationIcon>Bridge.ico</ApplicationIcon>
-    <ImplicitUsings>enable</ImplicitUsings>
-    <Nullable>enable</Nullable>
-    <AssemblyName>PotPlayerCompanionBridge</AssemblyName>
-    <RootNamespace>PotPlayerCompanionBridge</RootNamespace>
-  </PropertyGroup>
-</Project>
